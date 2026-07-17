@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2の補数学習アプリ - 4ビットマスター</title>
+    <!-- Tailwind CSS for modern design -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col">
+
+    <!-- ヘッダー -->
+    <header class="bg-gray-800 border-b border-gray-700 py-4 px-6 shadow-md">
+        <h1 class="text-2xl font-bold text-emerald-400 flex items-center gap-2">
+            <span>🧠</span> 2の補数マスター <span class="text-xs bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded-full font-mono">4-Bit Edition</span>
+        </h1>
+    </header>
+
+    <!-- メインコンテンツ（2分割） -->
+    <main class="flex-1 flex flex-col md:flex-row h-full overflow-hidden">
+        
+        <!-- 左画面：解説エリア -->
+        <section class="w-full md:w-1/2 p-6 md:p-8 bg-gray-850 overflow-y-auto border-r border-gray-800">
+            <h2 class="text-xl font-bold text-emerald-400 mb-4 pb-2 border-b border-gray-700">💡 2の補数とは？</h2>
+            
+            <p class="mb-4 text-gray-300 leading-relaxed">
+                コンピュータの内部では、引き算を直接行うのではなく、<strong>「負の数を表す特別な2進数」を足す</strong>ことで引き算を実現しています。このとき使われる表現が<strong>「2の補数」</strong>です。
+            </p>
+
+            <div class="bg-gray-800/50 p-4 rounded-lg border border-gray-700 mb-6">
+                <h3 class="text-lg font-semibold text-emerald-300 mb-2">🔄 2の補数の作り方（2ステップ）</h3>
+                <ol class="list-decimal list-inside space-y-2 text-gray-300">
+                    <li>元の数のビット（0と1）をすべて<strong>反転</strong>させる（1の補数）</li>
+                    <li>反転した結果に<strong> 1 を足す</strong></li>
+                </ol>
+                <div class="mt-3 text-xs bg-gray-900 p-2.5 rounded font-mono text-gray-400">
+                    例：-3 を表したいとき（4ビット）<br>
+                    1.「+3」は <span class="text-emerald-400">0011</span><br>
+                    2. 反転する ➔ <span class="text-amber-400">1100</span><br>
+                    3. 1を足す ➔ <span class="text-emerald-400">1101</span>（これが -3 の2の補数表現！）
+                </div>
+            </div>
+
+            <h3 class="text-lg font-semibold text-emerald-300 mb-2">📊 4ビットでの表現範囲</h3>
+            <p class="text-gray-300 mb-3 text-sm">
+                4ビットの最上位ビット（左端）は<strong>符号（正/負）</strong>を表します。
+                <strong class="text-emerald-400">0なら正（または0）</strong>、<strong class="text-rose-400">1なら負</strong>です。
+            </p>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm text-gray-300 bg-gray-800/30 rounded-lg overflow-hidden">
+                    <thead class="bg-gray-800 text-emerald-400">
+                        <tr>
+                            <th class="p-2 border-b border-gray-700">10進数</th>
+                            <th class="p-2 border-b border-gray-700">2進数（2の補数）</th>
+                            <th class="p-2 border-b border-gray-700">考え方</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-800 font-mono">
+                        <tr>
+                            <td class="p-2 text-emerald-400">+7</td>
+                            <td class="p-2">0111</td>
+                            <td class="p-2 text-xs text-gray-400">最大値</td>
+                        </tr>
+                        <tr>
+                            <td class="p-2 text-emerald-400">+1</td>
+                            <td class="p-2">0001</td>
+                            <td class="p-2 text-xs text-gray-400">正の数</td>
+                        </tr>
+                        <tr>
+                            <td class="p-2 text-gray-400">0</td>
+                            <td class="p-2">0000</td>
+                            <td class="p-2 text-xs text-gray-400">ゼロ</td>
+                        </tr>
+                        <tr>
+                            <td class="p-2 text-rose-400">-1</td>
+                            <td class="p-2">1111</td>
+                            <td class="p-2 text-xs text-gray-400">0001反転(1110) + 1</td>
+                        </tr>
+                        <tr>
+                            <td class="p-2 text-rose-400">-3</td>
+                            <td class="p-2">1101</td>
+                            <td class="p-2 text-xs text-gray-400">0011反転(1100) + 1</td>
+                        </tr>
+                        <tr>
+                            <td class="p-2 text-rose-400">-8</td>
+                            <td class="p-2">1000</td>
+                            <td class="p-2 text-xs text-gray-400">最小値（反転不可の特殊値）</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-xs text-gray-400 mt-2">※ 4ビットで表せる範囲は <strong>-8 〜 +7</strong> です。</p>
+        </section>
+
+        <!-- 右画面：練習問題エリア -->
+        <section class="w-full md:w-1/2 p-6 md:p-8 bg-gray-900 flex flex-col justify-between overflow-y-auto">
+            <div>
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold text-emerald-400">📝 4ビット問題に挑戦！</h2>
+                    <div class="bg-gray-800 px-3 py-1.5 rounded-lg border border-gray-700 font-mono text-sm text-emerald-300">
+                        スコア: <span id="score" class="font-bold">0</span> 問正解
+                    </div>
+                </div>
+
+                <!-- 問題カード -->
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 shadow-lg text-center mb-6">
+                    <p class="text-sm text-gray-400 uppercase tracking-widest mb-2 font-semibold">Question</p>
+                    <div id="question-text" class="text-2xl md:text-3xl font-bold text-white mb-6">
+                        読み込み中...
+                    </div>
+
+                    <!-- 回答フォーム -->
+                    <div class="max-w-xs mx-auto">
+                        <input type="text" id="user-answer" placeholder="回答を入力" 
+                               class="w-full bg-gray-900 border-2 border-gray-700 rounded-lg py-3 px-4 text-center font-mono text-xl tracking-wider text-white focus:outline-none focus:border-emerald-500 transition-colors uppercase"
+                               autocomplete="off" autofocus>
+                        <p id="input-tip" class="text-xs text-gray-500 mt-2">10進数、または4桁の2進数で入力してください</p>
+                    </div>
+                </div>
+
+                <!-- 判定メッセージ -->
+                <div id="feedback-area" class="hidden p-4 rounded-lg border mb-6 text-center transition-all duration-300">
+                    <p id="feedback-title" class="font-bold text-lg mb-1"></p>
+                    <p id="feedback-desc" class="text-sm"></p>
+                </div>
+            </div>
+
+            <!-- アクションボタン -->
+            <div class="flex gap-4 mt-6">
+                <button id="btn-submit" class="flex-1 bg-emerald-500 hover:bg-emerald-600 active:scale-[0.98] transition-all text-gray-905 font-bold py-3 px-6 rounded-lg shadow-md">
+                    解答する
+                </button>
+                <button id="btn-next" class="hidden flex-1 bg-gray-700 hover:bg-gray-600 active:scale-[0.98] transition-all text-white font-bold py-3 px-6 rounded-lg shadow-md">
+                    次の問題 ➔
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- JavaScript ロジック -->
+    <script>
+        // 状態管理
+        let score = 0;
+        let currentQuestion = null;
+        let isAnswered = false;
+
+        // DOM要素
+        const qText = document.getElementById('question-text');
+        const uAnswer = document.getElementById('user-answer');
+        const fArea = document.getElementById('feedback-area');
+        const fTitle = document.getElementById('feedback-title');
+        const fDesc = document.getElementById('feedback-desc');
+        const btnSubmit = document.getElementById('btn-submit');
+        const btnNext = document.getElementById('btn-next');
+        const scoreSpan = document.getElementById('score');
+        const inputTip = document.getElementById('input-tip');
+
+        // 問題のタイプをランダムに選んで生成
+        function generateQuestion() {
+            isAnswered = false;
+            uAnswer.value = '';
+            uAnswer.disabled = false;
+            uAnswer.focus();
+            fArea.classList.add('hidden');
+            btnSubmit.classList.remove('hidden');
+            btnNext.classList.add('hidden');
+
+            // -8から+7までの整数
+            const decimalVal = Math.floor(Math.random() * 16) - 8; 
+            
+            // 2の補数（4ビット）のバイナリ文字列を作成
+            let binaryVal = '';
+            if (decimalVal >= 0) {
+                binaryVal = decimalVal.toString(2).padStart(4, '0');
+            } else {
+                // 負の数：16を足して補数表現に変換（4ビットなら 16 + 負数）
+                binaryVal = (16 + decimalVal).toString(2).padStart(4, '0');
+            }
+
+            // 出題形式 (0: 10進数➔2進数, 1: 2進数➔10進数)
+            const type = Math.random() < 0.5 ? 0 : 1;
+
+            if (type === 0) {
+                currentQuestion = {
+                    type: 'dec_to_bin',
+                    prompt: `10進数の「 ${decimalVal} 」を<br>4ビットの2の補数(2進数)に変換せよ`,
+                    answer: binaryVal,
+                    tip: "ヒント: 正ならそのまま、負なら「反転して+1」",
+                    explain: `10進数の ${decimalVal} は、4ビットの2進数で「${binaryVal}」となります。`
+                };
+                inputTip.textContent = "回答例: 1101（4桁の2進数）";
+            } else {
+                currentQuestion = {
+                    type: 'bin_to_dec',
+                    prompt: `4ビット2の補数「 ${binaryVal} 」を<br>10進数に変換せよ`,
+                    answer: decimalVal.toString(),
+                    tip: "ヒント: 左端が1ならマイナス。反転して+1してマイナスを付けよう",
+                    explain: `2の補数「${binaryVal}」は、10進数で「${decimalVal}」となります。`
+                };
+                inputTip.textContent = "回答例: -3 （半角の数字）";
+            }
+
+            qText.innerHTML = currentQuestion.prompt;
+        }
+
+        // 解答判定
+        function checkAnswer() {
+            if (isAnswered) return;
+
+            const answer = uAnswer.value.trim().replace(/\s+/g, '');
+            if (!answer) return;
+
+            isAnswered = true;
+            uAnswer.disabled = true;
+
+            const isCorrect = answer === currentQuestion.answer;
+
+            // フィードバック表示
+            fArea.classList.remove('hidden');
+            if (isCorrect) {
+                score++;
+                scoreSpan.textContent = score;
+                fArea.className = "p-4 rounded-lg border mb-6 text-center bg-emerald-500/10 border-emerald-500 text-emerald-300";
+                fTitle.textContent = "🎉 正解！";
+            } else {
+                fArea.className = "p-4 rounded-lg border mb-6 text-center bg-rose-500/10 border-rose-500 text-rose-300";
+                fTitle.textContent = "❌ 残念！不正解";
+            }
+
+            fDesc.innerHTML = `${currentQuestion.explain}<br><span class="text-xs text-gray-400">あなたの回答: ${answer} | 正解: ${currentQuestion.answer}</span>`;
+
+            btnSubmit.classList.add('hidden');
+            btnNext.classList.remove('hidden');
+            btnNext.focus();
+        }
+
+        // イベントリスナー
+        btnSubmit.addEventListener('click', checkAnswer);
+        btnNext.addEventListener('click', generateQuestion);
+
+        // Enterキーでも操作できるように
+        uAnswer.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                if (!isAnswered) {
+                    checkAnswer();
+                }
+            }
+        });
+
+        btnNext.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && isAnswered) {
+                generateQuestion();
+            }
+        });
+
+        // 初回ロード
+        generateQuestion();
+    </script>
+</body>
+</html>
